@@ -6,7 +6,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ../data/db/mongodb:/var/lib/mongodb
+      - ../data/db/mongodb:/data/db
 
   api:
     image: node:9

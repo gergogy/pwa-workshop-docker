@@ -8,5 +8,3 @@
 
 ## Project dependencies
   - ToDo List API (`git clone git@github.com:gergogy/pwa-workshop-api.git todolist-api`)
-
-
