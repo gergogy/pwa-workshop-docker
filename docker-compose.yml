@@ -1,0 +1,47 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ../data/db/mongodb:/var/lib/mongodb
+
+  api:
+    image: node:9
+    user: node
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    links:
+      - mongo:mongo
+      - mysql:mysql
+    volumes:
+      - ../todolist-api:/home/node/app
+    ports:
+      - "81:3000"
+    command: ["npm", "run", "dev"]
+
+  mysql:
+    image: mysql:5.6
+    volumes:
+      - ../data/db/mysql:/var/lib/mysql
+    restart: always
+    command: --sql_mode=""
+    expose:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql:mysql
+    depends_on:
+      - mysql
+    restart: always
+    environment:
+      PMA_HOST: mysql
+    ports:
+      - "8081:80"
