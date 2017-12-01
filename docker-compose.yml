@@ -7,6 +7,8 @@ services:
       - "27017:27017"
     volumes:
       - ../data/db/mongodb:/data/db
+    hostname: mongo
+    container_name: pwa-mongo
 
   api:
     image: node:9
@@ -22,6 +24,8 @@ services:
     ports:
       - "81:3000"
     command: ["npm", "run", "dev"]
+    hostname: api
+    container_name: pwa-api
 
   mysql:
     image: mysql:5.6
@@ -33,6 +37,8 @@ services:
       - "3306"
     environment:
       MYSQL_ROOT_PASSWORD: password
+    hostname: mysql
+    container_name: pwa-mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -45,3 +51,5 @@ services:
       PMA_HOST: mysql
     ports:
       - "8081:80"
+    hostname: phpmyadmin
+    container_name: pwa-phpmyadmin
